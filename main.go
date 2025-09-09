@@ -12,6 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//my name is varaun
 var db *sql.DB
 var tmpl *template.Template
 
