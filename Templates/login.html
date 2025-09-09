@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Login</title>
+</head>
+<body>
+    <h1>Student Login</h1>
+    {{if .}}<p style="color: red;">{{.}}</p>{{end}}
+    <form method="POST" action="/login">
+        <label>Phone:</label><br>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>

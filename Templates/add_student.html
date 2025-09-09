@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Student</title>
+</head>
+<body>
+    <h1>Add New Student</h1>
+    <form method="POST" action="/admin/add">
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Phone:</label><br>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <label>Branch:</label><br>
+        <input type="text" name="branch"><br><br>
+
+        <label>College:</label><br>
+        <input type="text" name="college"><br><br>
+
+        <label>Year:</label><br>
+        <input type="text" name="year"><br><br>
+
+        <label>Address:</label><br>
+        <textarea name="address"></textarea><br><br>
+
+        <input type="submit" value="Add Student">
+    </form>
+    <br>
+    <a href="/admin/dashboard">Back to Dashboard</a>
+</body>
+</html>
