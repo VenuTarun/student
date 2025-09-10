@@ -1,24 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Registration</title>
+    <title>Admin Register</title>
 </head>
 <body>
-    <h1>Admin Registration</h1>
+    <h1>Admin Register</h1>
     <form method="POST" action="/admin/register">
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
-
-        <label>Phone:</label><br>
-        <input type="text" name="phone" required><br><br>
-
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-
-        <input type="submit" value="Register Admin">
+        Username: <input type="text" name="username" required><br>
+        Phone: <input type="text" name="phone"><br>
+        Password: <input type="password" name="password" required><br>
+        <input type="submit" value="Register">
     </form>
-    <br>
-    <a href="/admin/login">Back to Admin Login</a>
+    <a href="/admin/login">Admin Login</a>
 </body>
 </html>
