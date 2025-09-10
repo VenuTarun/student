@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Admin Dashboard</title>
 </head>
 <body>
-    <h1>Admin Dashboard - Students List</h1>
-    <a href="/admin/add">Add New Student</a>
-    <table border="1" cellpadding="10">
+    <h1>Students List</h1>
+    <a href="/admin/add">Add Student</a>
+    <table border="1">
         <tr>
             <th>ID</th><th>Name</th><th>Phone</th><th>Branch</th><th>College</th><th>Year</th><th>Address</th><th>Actions</th>
         </tr>
@@ -21,7 +20,7 @@
             <td>{{.Year}}</td>
             <td>{{.Address}}</td>
             <td>
-                <a href="/admin/edit/{{.ID}}">Edit</a> |
+                <a href="/admin/edit/{{.ID}}">Edit</a> | 
                 <a href="/admin/delete/{{.ID}}">Delete</a>
             </td>
         </tr>
