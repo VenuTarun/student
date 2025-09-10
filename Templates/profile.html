@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Profile</title>
+    <title>Student Dashboard</title>
 </head>
 <body>
-    <h1>Your Profile</h1>
-    <p><strong>ID:</strong> {{.ID}}</p>
-    <p><strong>Name:</strong> {{.Name}}</p>
-    <p><strong>Phone:</strong> {{.Phone}}</p>
-    <p><strong>Branch:</strong> {{.Branch}}</p>
-    <p><strong>College:</strong> {{.College}}</p>
-    <p><strong>Year:</strong> {{.Year}}</p>
-    <p><strong>Address:</strong> {{.Address}}</p>
+    <h2>Welcome, {{.Name}}</h2>
+    <p><b>ID:</b> {{.ID}}</p>
+    <p><b>Phone:</b> {{.Phone}}</p>
+    <p><b>Branch:</b> {{.Branch}}</p>
+    <p><b>College:</b> {{.College}}</p>
+    <p><b>Year:</b> {{.Year}}</p>
+    <p><b>Address:</b> {{.Address}}</p>
+    <br>
+    <a href="/login">Logout</a>
 </body>
 </html>

@@ -12,9 +12,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
+
 var db *sql.DB
 var tmpl *template.Template
 
+// ================== TABLE CREATION ==================
 func createTable() {
 	_, err := db.Exec(`CREATE TABLE IF NOT EXISTS students (
 		id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,12 +42,15 @@ func createTable() {
 		log.Fatal(err)
 	}
 
+	// Insert default admin if not exists
 	_, err = db.Exec(`INSERT IGNORE INTO admins (username, phone, password)
 		VALUES ('admin', '9876543210', 'admin123')`)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
+
+// ================== STUDENT HANDLERS ==================
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -69,6 +74,9 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
+	/* ResponseWriter interface is used by an HTTP handler to construct an HTTP response.
+     A ResponseWriter may not be used after [Handler.ServeHTTP] has returned.
+	 A Request represents an HTTP request received by a server or to be sent by a client.*/
 	if r.Method == "GET" {
 		tmpl.ExecuteTemplate(w, "login.html", nil)
 		return
@@ -90,7 +98,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func studentProfile(w http.ResponseWriter, r *http.Request) {
-	idStr := mux.Vars(r)["id"]
+	idStr := mux.Vars(r)["id"]//Vars returns the route variables for the current request, if any.
 	id, _ := strconv.Atoi(idStr)
 
 	var student struct {
@@ -116,6 +124,8 @@ func studentProfile(w http.ResponseWriter, r *http.Request) {
 
 	tmpl.ExecuteTemplate(w, "profile.html", student)
 }
+
+// ================== ADMIN HANDLERS ==================
 
 func registerAdminHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -168,7 +178,7 @@ func adminDashboard(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 
-	type Student struct {
+	var students []struct {
 		ID      int
 		Name    string
 		Phone   string
@@ -177,37 +187,21 @@ func adminDashboard(w http.ResponseWriter, r *http.Request) {
 		Year    string
 		Address string
 	}
-
-	studentCh := make(chan Student)
-	errCh := make(chan error)
-	doneCh := make(chan bool)
-
-	go func() {
-		for rows.Next() {
-			var s Student
-			err := rows.Scan(&s.ID, &s.Name, &s.Phone, &s.Branch, &s.College, &s.Year, &s.Address)
-			if err != nil {
-				errCh <- err
-				return
-			}
-			studentCh <- s
+	for rows.Next() {
+		var s struct {
+			ID      int
+			Name    string
+			Phone   string
+			Branch  string
+			College string
+			Year    string
+			Address string
 		}
-		doneCh <- true
-	}()
-
-	var students []Student
-	for {
-		select {
-		case s := <-studentCh:
-			students = append(students, s)
-		case err := <-errCh:
-			http.Error(w, "Error scanning student: "+err.Error(), http.StatusInternalServerError)
-			return
-		case <-doneCh:
-			tmpl.ExecuteTemplate(w, "admin.html", students)
-			return
-		}
+		rows.Scan(&s.ID, &s.Name, &s.Phone, &s.Branch, &s.College, &s.Year, &s.Address)
+		students = append(students, s)
 	}
+
+	tmpl.ExecuteTemplate(w, "admin.html", students)
 }
 
 func addStudent(w http.ResponseWriter, r *http.Request) {
@@ -239,61 +233,62 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
 }
 
 func editStudent(w http.ResponseWriter, r *http.Request) {
-	idStr := mux.Vars(r)["id"]
-	id, _ := strconv.Atoi(idStr)
+    idStr := mux.Vars(r)["id"]//Vars returns the route variables for the current request, if any.
+    id, _ := strconv.Atoi(idStr)
 
-	if r.Method == "GET" {
-		var s struct {
-			ID      int
-			Name    string
-			Phone   string
-			Branch  string
-			College string
-			Year    string
-			Address string
-		}
+    if r.Method == "GET" {
+        var s struct {
+            ID      int
+            Name    string
+            Phone   string
+            Branch  string
+            College string
+            Year    string
+            Address string
+        }
 
-		err := db.QueryRow(`SELECT id, name, phone, branch, college, year, address 
-			FROM students WHERE id=?`, id).
-			Scan(&s.ID, &s.Name, &s.Phone, &s.Branch, &s.College, &s.Year, &s.Address)
+        err := db.QueryRow(`SELECT id, name, phone, branch, college, year, address 
+            FROM students WHERE id=?`, id).
+            Scan(&s.ID, &s.Name, &s.Phone, &s.Branch, &s.College, &s.Year, &s.Address)
 
-		if err != nil {
-			http.Error(w, "Student not found", http.StatusNotFound)
-			return
-		}
+        if err != nil {
+            http.Error(w, "Student not found", http.StatusNotFound)
+            return
+        }
 
 		if err := tmpl.ExecuteTemplate(w, "edit_student.html", s); err != nil {
 			http.Error(w, "Error rendering template", http.StatusInternalServerError)
 			return
 		}
 		return
-	}
+    }
 
-	if r.Method == "POST" {
-		idStr := r.FormValue("id")
-		id, err := strconv.Atoi(idStr)
-		if err != nil {
-			http.Error(w, "Invalid student ID", http.StatusBadRequest)
-			return
-		}
+    if r.Method == "POST" {
+        idStr := r.FormValue("id")
+        id, err := strconv.Atoi(idStr)
+        if err != nil {
+            http.Error(w, "Invalid student ID", http.StatusBadRequest)
+            return
+        }
 
-		branch := r.FormValue("branch")
-		college := r.FormValue("college")
-		year := r.FormValue("year")
-		address := r.FormValue("address")
+        branch := r.FormValue("branch")
+        college := r.FormValue("college")
+        year := r.FormValue("year")
+        address := r.FormValue("address")
 
-		_, err = db.Exec(`UPDATE students 
-			SET branch=?, college=?, year=?, address=? WHERE id=?`,
-			branch, college, year, address, id)
+        _, err = db.Exec(`UPDATE students 
+            SET branch=?, college=?, year=?, address=? WHERE id=?`,
+            branch, college, year, address, id)
 
-		if err != nil {
-			http.Error(w, "Error updating student", http.StatusInternalServerError)
-			return
-		}
+        if err != nil {
+            http.Error(w, "Error updating student", http.StatusInternalServerError)
+            return
+        }
 
-		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
-	}
+        http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
+    }
 }
+
 
 func deleteStudent(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
@@ -308,6 +303,7 @@ func deleteStudent(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
 }
 
+// ================== MAIN ==================
 func main() {
 	var err error
 	tmpl, err = template.ParseGlob("templates/*")
@@ -325,10 +321,12 @@ func main() {
 
 	r := mux.NewRouter()
 
+	// Student routes
 	r.HandleFunc("/register", registerHandler).Methods("GET", "POST")
 	r.HandleFunc("/login", loginHandler).Methods("GET", "POST")
 	r.HandleFunc("/student/{id}", studentProfile).Methods("GET")
 
+	// Admin routes
 	r.HandleFunc("/admin/register", registerAdminHandler).Methods("GET", "POST")
 	r.HandleFunc("/admin/login", adminLoginHandler).Methods("GET", "POST")
 	r.HandleFunc("/admin/dashboard", adminDashboard).Methods("GET")
