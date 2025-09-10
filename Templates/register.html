@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Register</title>
+    <meta charset="UTF-8">
+    <title>Student Registration</title>
 </head>
 <body>
-    <h1>Register as Student</h1>
+    <h1>Student Registration</h1>
     <form method="POST" action="/register">
-        Name: <input type="text" name="name" required><br>
-        Phone: <input type="text" name="phone" required><br>
-        Password: <input type="password" name="password" required><br>
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Phone:</label><br>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
         <input type="submit" value="Register">
     </form>
-    <a href="/login">Login</a>
+    <br>
+    <a href="/login">Already have an account? Login</a>
 </body>
 </html>

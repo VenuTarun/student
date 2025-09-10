@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Edit Student</title>
 </head>
 <body>
-    <h1>Edit Student</h1>
+    <h1>Edit Student Details</h1>
     <form method="POST" action="/admin/edit/{{.ID}}">
         <input type="hidden" name="id" value="{{.ID}}">
-        Name: <input type="text" name="name" value="{{.Name}}" readonly><br>
-        Phone: <input type="text" name="phone" value="{{.Phone}}" readonly><br>
-        Branch: <input type="text" name="branch" value="{{.Branch}}"><br>
-        College: <input type="text" name="college" value="{{.College}}"><br>
-        Year: <input type="text" name="year" value="{{.Year}}"><br>
-        Address: <input type="text" name="address" value="{{.Address}}"><br>
+
+        <label>Name:</label><br>
+        <input type="text" name="name" value="{{.Name}}" readonly><br><br>
+
+        <label>Phone:</label><br>
+        <input type="text" name="phone" value="{{.Phone}}" readonly><br><br>
+
+        <label>Branch:</label><br>
+        <input type="text" name="branch" value="{{.Branch}}"><br><br>
+
+        <label>College:</label><br>
+        <input type="text" name="college" value="{{.College}}"><br><br>
+
+        <label>Year:</label><br>
+        <input type="text" name="year" value="{{.Year}}"><br><br>
+
+        <label>Address:</label><br>
+        <textarea name="address">{{.Address}}</textarea><br><br>
+
         <input type="submit" value="Update Student">
     </form>
+
+    <br>
     <a href="/admin/dashboard">Back to Dashboard</a>
 </body>
 </html>
