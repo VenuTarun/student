@@ -302,7 +302,7 @@ func deleteStudent(w http.ResponseWriter, r *http.Request) {
 // ================== MAIN FUNCTION ==================
 func main() {
 	var err error
-	tmpl, err = template.ParseGlob("templates/*.html") // ✅ Correct glob pattern
+	tmpl, err = template.ParseGlob("templates/*.html") 
 	if err != nil {
 		log.Fatalf("Template parsing error: %v", err)
 	}
