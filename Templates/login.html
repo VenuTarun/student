@@ -1,20 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Student Login</title>
+
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="password"] {
+            background-color: black;
+            color: white;
+            border: 1px solid #555;
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #5a67d8;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        p.error {
+            color: red;
+        }
+    </style>
+
 </head>
+
 <body>
-    <h1>Student Login</h1>
-    {{if .}}<p style="color: red;">{{.}}</p>{{end}}
-    <form method="POST" action="/login">
-        <label>Phone:</label><br>
-        <input type="text" name="phone" required><br><br>
+    <div class="container">
+        <h1>Student Login</h1>
+        {{if .}}<p class="error">{{.}}</p>{{end}}
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+        <form method="POST" action="/login">
+            <div class="input-group">
+                <label>Phone:</label><br>
+                <input type="text" name="phone" required>
+            </div>
 
-        <input type="submit" value="Login">
-    </form>
+            <div class="input-group">
+                <label>Password:</label><br>
+                <input type="password" name="password" required>
+            </div>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
 </body>
+
 </html>

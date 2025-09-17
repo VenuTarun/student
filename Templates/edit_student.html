@@ -2,35 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Student</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        form input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+        form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        form input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Edit Student Details</h1>
-    <form method="POST" action="/admin/edit/{{.ID}}">
-        <input type="hidden" name="id" value="{{.ID}}">
+    <div class="container">
+        <h1>Edit Student Details</h1>
+        <form method="POST" action="/admin/edit/{{.ID}}">
+            <input type="hidden" name="id" value="{{.ID}}">
 
-        <label>Name:</label><br>
-        <input type="text" name="name" value="{{.Name}}" readonly><br><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{.Name}}" readonly>
 
-        <label>Phone:</label><br>
-        <input type="text" name="phone" value="{{.Phone}}" readonly><br><br>
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="{{.Phone}}" readonly>
 
-        <label>Branch:</label><br>
-        <input type="text" name="branch" value="{{.Branch}}"><br><br>
+            <label for="branch">Branch:</label>
+            <input type="text" id="branch" name="branch" value="{{.Branch}}">
 
-        <label>College:</label><br>
-        <input type="text" name="college" value="{{.College}}"><br><br>
+            <label for="college">College:</label>
+            <input type="text" id="college" name="college" value="{{.College}}">
 
-        <label>Year:</label><br>
-        <input type="text" name="year" value="{{.Year}}"><br><br>
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year" value="{{.Year}}">
 
-        <label>Address:</label><br>
-        <textarea name="address">{{.Address}}</textarea><br><br>
+            <label for="address">Address:</label>
+            <textarea id="address" name="address">{{.Address}}</textarea>
 
-        <input type="submit" value="Update Student">
-    </form>
+            <input type="submit" value="Update Student">
+        </form>
 
-    <br>
-    <a href="/admin/dashboard">Back to Dashboard</a>
+        <a class="back-link" href="/admin/dashboard">← Back to Dashboard</a>
+    </div>
 </body>
 </html>

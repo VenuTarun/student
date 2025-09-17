@@ -1,31 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 1000px;
+            margin: auto;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background: #5a67d8;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: #4c51bf;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #5a67d8;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #5a67d8;
+            font-weight: bold;
+        }
+
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Admin Dashboard - Students List</h1>
-    <a href="/admin/add">Add New Student</a>
-    <table border="1" cellpadding="10">
-        <tr>
-            <th>ID</th><th>Name</th><th>Phone</th><th>Branch</th><th>College</th><th>Year</th><th>Address</th><th>Actions</th>
-        </tr>
-        {{range .}}
-        <tr>
-            <td>{{.ID}}</td>
-            <td>{{.Name}}</td>
-            <td>{{.Phone}}</td>
-            <td>{{.Branch}}</td>
-            <td>{{.College}}</td>
-            <td>{{.Year}}</td>
-            <td>{{.Address}}</td>
-            <td>
-                <a href="/admin/edit/{{.ID}}">Edit</a> |
-                <a href="/admin/delete/{{.ID}}">Delete</a>
-            </td>
-        </tr>
-        {{end}}
-    </table>
+    <div class="container">
+        <h1>Admin Dashboard - Students List</h1>
+
+        <div class="button-group">
+            <a class="button" href="/admin/add">➕ Add New Student</a>
+            <a class="button" href="/admin/logout">🚪 Logout</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Branch</th>
+                    <th>College</th>
+                    <th>Year</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .}}
+                <tr>
+                    <td>{{.ID}}</td>
+                    <td>{{.Name}}</td>
+                    <td>{{.Phone}}</td>
+                    <td>{{.Branch}}</td>
+                    <td>{{.College}}</td>
+                    <td>{{.Year}}</td>
+                    <td>{{.Address}}</td>
+                    <td class="action-links">
+                        <a href="/admin/edit/{{.ID}}">✏️ Edit</a>
+                        <a href="/admin/delete/{{.ID}}">🗑️ Delete</a>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
 </body>
+
 </html>

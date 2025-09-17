@@ -59,6 +59,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		name := r.FormValue("name")
 		phone := r.FormValue("phone")
 		password := r.FormValue("password")
+		
 
 		_, err := db.Exec("INSERT INTO students (name, phone, password) VALUES (?, ?, ?)", name, phone, password)
 		if err != nil {
@@ -208,6 +209,12 @@ func adminDashboard(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func adminLogoutHandler(w http.ResponseWriter, r *http.Request) {
+    // In a real-world app, you would also clear session/cookies here
+    http.Redirect(w, r, "/admin/login", http.StatusSeeOther)
+}
+
+
 func addStudent(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		tmpl.ExecuteTemplate(w, "add_student.html", nil)
@@ -327,6 +334,8 @@ func main() {
 	r.HandleFunc("/admin/add", addStudent).Methods("GET", "POST")
 	r.HandleFunc("/admin/edit/{id}", editStudent).Methods("GET", "POST")
 	r.HandleFunc("/admin/delete/{id}", deleteStudent).Methods("GET")
+	r.HandleFunc("/admin/logout", adminLogoutHandler).Methods("GET")
+
 
 	fmt.Println("Server started at :8080")
 	log.Fatal(http.ListenAndServe(":8080", r))

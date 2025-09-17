@@ -1,36 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Add New Student</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: #5a67d8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #4c51bf;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #5a67d8;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Add New Student</h1>
-    <form method="POST" action="/admin/add">
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
+    <div class="form-container">
+        <h1>Add New Student</h1>
 
-        <label>Phone:</label><br>
-        <input type="text" name="phone" required><br><br>
+        <form method="POST" action="/admin/add">
+            <label>Name:</label>
+            <input type="text" name="name" required>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+            <label>Phone:</label>
+            <input type="text" name="phone" required>
 
-        <label>Branch:</label><br>
-        <input type="text" name="branch"><br><br>
+            <label>Password:</label>
+            <input type="password" name="password" required>
 
-        <label>College:</label><br>
-        <input type="text" name="college"><br><br>
+            <label>Branch:</label>
+            <input type="text" name="branch">
 
-        <label>Year:</label><br>
-        <input type="text" name="year"><br><br>
+            <label>College:</label>
+            <input type="text" name="college">
 
-        <label>Address:</label><br>
-        <textarea name="address"></textarea><br><br>
+            <label>Year:</label>
+            <input type="text" name="year">
 
-        <input type="submit" value="Add Student">
-    </form>
-    <br>
-    <a href="/admin/dashboard">Back to Dashboard</a>
+            <label>Address:</label>
+            <textarea name="address"></textarea>
+
+            <input type="submit" value="Add Student">
+        </form>
+
+        <a class="back-link" href="/admin/dashboard">← Back to Dashboard</a>
+    </div>
 </body>
+
 </html>

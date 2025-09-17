@@ -1,17 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
     <title>Student Dashboard</title>
+
+    <style>
+        body {
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header h1 {
+            color: #333;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .detail-box {
+            background-color: #222;
+            color: rgb(59, 210, 237);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .logout-button {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 12px;
+            background-color: #23e7e7;
+            color: white(33, 217, 98);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            width: 150px;
+        }
+
+        .logout-button:hover {
+            background-color: #4c51bf;
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Welcome, {{.Name}}</h2>
-    <p><b>ID:</b> {{.ID}}</p>
-    <p><b>Phone:</b> {{.Phone}}</p>
-    <p><b>Branch:</b> {{.Branch}}</p>
-    <p><b>College:</b> {{.College}}</p>
-    <p><b>Year:</b> {{.Year}}</p>
-    <p><b>Address:</b> {{.Address}}</p>
-    <br>
-    <a href="/login">Logout</a>
+    <div class="dashboard">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1>Welcome, {{.Name}}</h1>
+            </div>
+
+            <div class="profile-details">
+                <div class="detail-box"><b>ID:</b><br>{{.ID}}</div>
+                <div class="detail-box"><b>Phone:</b><br>{{.Phone}}</div>
+                <div class="detail-box"><b>Branch:</b><br>{{.Branch}}</div>
+                <div class="detail-box"><b>College:</b><br>{{.College}}</div>
+                <div class="detail-box"><b>Year:</b><br>{{.Year}}</div>
+                <div class="detail-box"><b>Address:</b><br>{{.Address}}</div>
+            </div>
+
+            <a class="logout-button" href="/login">Logout</a>
+        </div>
+    </div>
 </body>
+
 </html>
